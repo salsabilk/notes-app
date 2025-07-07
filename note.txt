@@ -1,2 +1,14 @@
 NEXT_PUBLIC_SUPABASE_URL=https://wojhpmekutxojgdchvoy.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvamhwbWVrdXR4b2pnZGNodm95Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0MTg5OTMsImV4cCI6MjA2Njk5NDk5M30.5O_08VyMK6e8QFN17-pkY5L4qPNceirvtfmQPzKZ2Rs
+
+
+PROJECT NOTES, harus install:
+npm install lucide-react
+npm install date-fns
+npm install @supabase/ssr
+npm install @radix-ui/react-slot
+npm install @radix-ui/react-slot
+npm install class-variance-authority
+npm install @radix-ui/react-checkbox
+npm install @radix-ui/react-dropdown-menu
+npm install @radix-ui/react-label

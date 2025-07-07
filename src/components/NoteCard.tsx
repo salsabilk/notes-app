@@ -79,7 +79,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
         </div>
       </div>
 
-      {/* Note Kondisi */}
+      {/* Note Completed */}
       <div className={`${note.is_completed ? 'opacity-60' : ''}`}>
         <h3 className={`text-lg font-semibold text-gray-900 mb-2 ${note.is_completed ? 'line-through' : ''}`}>
           {note.title}
@@ -93,7 +93,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
       </div>
 
       {/* Date */}
-      <div className="text-xs text-gray-400 mt-auto">
+      <div className="text-xs text-gray-400 mt-auto text-right">
         {formatDate(note.created_at)}
       </div>
     </div>

@@ -2,23 +2,29 @@ import HeaderPanel from "@/components/header/header-panel";
 import NotesWrapper from "@/components/notes/notes-wrapper";
 import { getNotes } from "@/actions/note-action";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
+import { NoteProvider } from "@/context/NoteContext"; // Import NoteProvider
 
 export default async function NotesApp() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   if (!user) {
     redirect("/login");
   }
 
-  const notes = await getNotes();
+  const notes = await getNotes(); // Mengambil notes dari server
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors">
+    <div className="min-h-screen bg-gray-100">
       <HeaderPanel />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <NotesWrapper initialNotes={notes} />
+        <NoteProvider initialNotes={notes}>
+          <NotesWrapper />
+        </NoteProvider>
       </div>
     </div>
   );

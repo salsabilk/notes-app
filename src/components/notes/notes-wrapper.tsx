@@ -1,32 +1,19 @@
+// components/notes/notes-wrapper.tsx
 "use client";
 
-import { useState } from "react";
-import { Note, NoteCategory } from "@/types/note";
+import { useState } from "react"; // useState ini tidak lagi dibutuhkan untuk kategori/completed
+import { Note, NoteCategory } from "@/types/note"; // Import NoteCategory
 import TabPanel from "@/components/header/tab-panel";
 import NoteContent from "@/components/notes/note-content";
+import { useNotes } from "@/context/NoteContext"; // Import useNotes
 
-interface NotesWrapperProps {
-  initialNotes: Note[];
-}
-
-export default function NotesWrapper({ initialNotes }: NotesWrapperProps) {
-  const [activeCategory, setActiveCategory] = useState<NoteCategory>('all');
-  const [showCompletedOnly, setShowCompletedOnly] = useState(false);
+export default function NotesWrapper() {
+  const { notes, activeCategory, showCompletedOnly, setActiveCategory, setShowCompletedOnly } = useNotes();
 
   return (
     <>
-      <TabPanel 
-        notes={initialNotes} 
-        activeCategory={activeCategory}
-        showCompletedOnly={showCompletedOnly}
-        onCategoryChange={setActiveCategory}
-        onCompletedToggle={setShowCompletedOnly}
-      />
-      <NoteContent 
-        notes={initialNotes} 
-        activeCategory={activeCategory}
-        showCompletedOnly={showCompletedOnly}
-      />
+      <TabPanel />
+      <NoteContent />
     </>
   );
 }

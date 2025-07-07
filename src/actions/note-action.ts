@@ -63,7 +63,7 @@ export async function updateNote(id: string, noteData: UpdateNoteData) {
     .from("notes_app")
     .update(noteData)
     .eq("id", id)
-    .eq("user_id", user.id)   // User hanya bisa update note sendiri
+    .eq("user_id", user.id)  
     .select()
     .single();
 
