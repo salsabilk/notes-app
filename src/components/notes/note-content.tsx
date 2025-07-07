@@ -1,37 +1,25 @@
-// components/notes/notes-content.tsx
 "use client";
 
 import { useState, useEffect } from "react";
-import { Note, NoteCategory, CreateNoteData } from "@/types/note";
+import { Note, CreateNoteData } from "@/types/note";
 import { Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NoteCard from "@/components/NoteCard";
 import NoteModal from "@/components/NoteModal";
-// import { createNote, updateNote, deleteNote, toggleComplete } from "@/actions/note-action";
+import { createNote, updateNote, deleteNote, toggleComplete } from "@/actions/note-action";
 import toast, { Toaster } from "react-hot-toast";
 import { useNotes } from "@/context/NoteContext"; // Import useNotes
 
-interface NoteContentProps {
-  // notes: Note[];
-  // activeCategory: NoteCategory;
-  // showCompletedOnly: boolean;
-}
-
-export default function NoteContent({
-  // activeCategory,
-  // showCompletedOnly
-}: NoteContentProps) {
-  // Ambil semua state dan fungsi dari Context
+export default function NoteContent() {
+  // Mengambil semua state dan function dari Context
   const {
-    notes,
-    activeCategory,
-    showCompletedOnly,
-    isLoading, // Mengambil isLoading dari context
-    addNote,
-    editNote,
-    removeNote,
-    toggleNoteCompletion,
-  } = useNotes();
+    notes,           // Array notes dari context
+    setNotes,        // Function untuk mengupdate notes di context
+    activeCategory,  // Kategori aktif dari context
+    showCompletedOnly, // Filter status dari context
+    isLoading,       // Loading state dari context
+    setIsLoading,    // Function untuk mengubah loading state
+  } = useNotes();    // Custom hook untuk mengakses context
 
   const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,7 +27,7 @@ export default function NoteContent({
   const [editingNote, setEditingNote] = useState<Note | null>(null);
 
   useEffect(() => {
-    let filtered = notes;
+    let filtered = notes;         // Menggunakan notes dari context
 
     // Filter by category
     if (activeCategory !== "all") {
@@ -55,7 +43,7 @@ export default function NoteContent({
       );
     }
 
-    // Filter by completion status
+    // Filter by completion status complete
     if (showCompletedOnly) {
       filtered = filtered.filter((note) => note.is_completed);
     }
@@ -63,41 +51,70 @@ export default function NoteContent({
     setFilteredNotes(filtered);
   }, [notes, activeCategory, searchQuery, showCompletedOnly]);
 
-  // Fungsi-fungsi handler sekarang memanggil fungsi dari Context
+  // Fungsi untuk menangani penambahan note baru
   const handleAddNote = async (noteData: CreateNoteData) => {
     try {
-      await addNote(noteData); // Panggil fungsi dari Context
+      setIsLoading(true);       // Mengubah loading state di context
+      const newNote = await createNote(noteData);
+      setNotes(prev => [newNote, ...prev]);   // Update notes di context
       setShowModal(false);
+      toast.success('Note added successfully!');
     } catch (error) {
-      //
+      toast.error('Failed to add note');
+      console.error('Error adding note:', error);
+    } finally {
+      setIsLoading(false);     // Reset loading state di context
     }
   };
 
+  // Fungsi untuk menangani update note
   const handleUpdateNote = async (noteData: CreateNoteData) => {
     if (!editingNote) return;
 
     try {
-      await editNote(editingNote.id, noteData); // Panggil fungsi dari Context
+      setIsLoading(true);
+      const updatedNote = await updateNote(editingNote.id, noteData);
+      
+      setNotes(prev => prev.map(note => 
+        note.id === editingNote.id ? updatedNote : note
+      ));
+      
       setShowModal(false);
       setEditingNote(null);
+      toast.success('Note updated successfully!');
     } catch (error) {
-      //
+      toast.error('Failed to update note');
+      console.error('Error updating note:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  // Fungsi untuk menangani penghapusan note
   const handleDeleteNote = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this note?')) return;
+
     try {
-      await removeNote(id); // Panggil fungsi dari Context
+      await deleteNote(id);
+      setNotes(prev => prev.filter(note => note.id !== id));
+      toast.success('Note deleted successfully!');
     } catch (error) {
-      //
+      toast.error('Failed to delete note');
+      console.error('Error deleting note:', error);
     }
   };
 
+  // Fungsi untuk menangani toggle completion status
   const handleToggleComplete = async (id: string, isCompleted: boolean) => {
     try {
-      await toggleNoteCompletion(id, isCompleted); // Panggil fungsi dari Context
+      const updatedNote = await toggleComplete(id, isCompleted);
+      setNotes(prev => prev.map(note => 
+        note.id === id ? updatedNote : note
+      ));
+      toast.success(isCompleted ? 'Note marked as completed!' : 'Note marked as incomplete!');
     } catch (error) {
-      //
+      toast.error('Failed to update note status');
+      console.error('Error toggling note status:', error);
     }
   };
 
@@ -143,10 +160,10 @@ export default function NoteContent({
         {/* Add Button */}
         <Button
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center px-5 py-5 bg-blue-500 text-white rounded-2xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          className="inline-flex items-center px-5 py-5 bg-blue-500 text-white rounded-2xl hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
         >
-          <Plus size={40} className="mr-2" />
-          Add Note
+          <Plus size={40} />
+          Add
         </Button>
       </div>
 
@@ -155,13 +172,10 @@ export default function NoteContent({
         <div className="flex flex-col items-center justify-center h-64 text-gray-500">
           <div className="text-lg mb-2">No notes found</div>
           <div className="text-sm">
-            {searchQuery
-              ? "Try a different search term"
-              : showCompletedOnly
-              ? "No completed notes yet"
-              : activeCategory !== "all"
-              ? `No notes in ${activeCategory} category`
-              : "Create your first note to get started"}
+            {searchQuery ? 'Try a different search term' : 
+             showCompletedOnly ? 'No completed notes yet' :
+             activeCategory !== 'all' ? `No notes in ${activeCategory} category` :
+             'Create your first note to get started'}
           </div>
         </div>
       ) : (

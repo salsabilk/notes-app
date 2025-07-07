@@ -6,7 +6,6 @@ import { CheckSquare } from "lucide-react";
 import { useNotes } from "@/context/NoteContext"; // Import useNotes
 
 interface TabPanelProps {
-  // Props ini tidak perlu lagi karena akan diambil dari Context
   // notes: Note[];
   // activeCategory: NoteCategory;
   // showCompletedOnly: boolean;
@@ -15,7 +14,6 @@ interface TabPanelProps {
 }
 
 export default function TabPanel({
-  // notes, // Hapus dari destructuring props
   // activeCategory,
   // showCompletedOnly,
   // onCategoryChange,

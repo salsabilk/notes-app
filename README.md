@@ -34,3 +34,67 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+```
+usecontext-notes
+├─ eslint.config.mjs
+├─ middleware.ts
+├─ next.config.ts
+├─ note.txt
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.mjs
+├─ public
+│  ├─ file.svg
+│  ├─ globe.svg
+│  ├─ next.svg
+│  ├─ vercel.svg
+│  └─ window.svg
+├─ README.md
+├─ src
+│  ├─ actions
+│  │  ├─ login-action.ts
+│  │  ├─ note-action.ts
+│  │  └─ profile-action.ts
+│  ├─ app
+│  │  ├─ favicon.ico
+│  │  ├─ globals.css
+│  │  ├─ layout.tsx
+│  │  ├─ login
+│  │  │  ├─ form.tsx
+│  │  │  ├─ layout.tsx
+│  │  │  └─ page.tsx
+│  │  └─ page.tsx
+│  ├─ components
+│  │  ├─ header
+│  │  │  ├─ header-panel.tsx
+│  │  │  ├─ tab-panel.tsx
+│  │  │  └─ user-dropdown.tsx
+│  │  ├─ NoteCard.tsx
+│  │  ├─ NoteModal.tsx
+│  │  ├─ notes
+│  │  │  ├─ note-content.tsx
+│  │  │  └─ notes-wrapper.tsx
+│  │  └─ ui
+│  │     ├─ button.tsx
+│  │     ├─ checkbox.tsx
+│  │     ├─ dropdown-menu.tsx
+│  │     ├─ input.tsx
+│  │     ├─ label.tsx
+│  │     └─ theme-toggle.tsx
+│  ├─ context
+│  │  └─ NoteContext.tsx
+│  ├─ lib
+│  │  ├─ supabase.js
+│  │  ├─ utils
+│  │  │  └─ supabase
+│  │  │     ├─ client.ts
+│  │  │     ├─ middleware.ts
+│  │  │     └─ server.ts
+│  │  └─ utils.ts
+│  └─ types
+│     └─ note.ts
+├─ tailwind.config.js
+└─ tsconfig.json
+
+```

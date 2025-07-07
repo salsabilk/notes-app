@@ -28,13 +28,13 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+        <div className="space-y-2 text-gray-900">
+          <Label htmlFor="email ">Email <span className="text-red-500">*</span></Label>
           <Input
             value={email}
             className={`p-2 border rounded-md ${
               message ? "border-red-500" : "border-gray-300"
-            }`}
+            } text-gray-700`}
             onChange={(e) => setEmail(e.target.value)}
             id="email"
             type="email"
@@ -43,13 +43,13 @@ export default function LoginForm() {
             required
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+        <div className="space-y-2 text-gray-900">
+          <Label htmlFor="password">Password <span className="text-red-500">*</span></Label>
           <Input
             value={password}
             className={`p-2 border rounded-md ${
               message ? "border-red-500" : "border-gray-300"
-            }`}
+            } text-gray-700`}
             disabled={isLoading}
             onChange={(e) => setPassword(e.target.value)}
             id="password"
@@ -59,7 +59,7 @@ export default function LoginForm() {
         </div>
         {message && <p className="text-red-500 text-center">{message}</p>}
 
-        <Button disabled={isLoading} type="submit" className="w-full">
+        <Button disabled={isLoading} type="submit" className="w-full bg-blue-500 hover:bg-blue-700 transition-colors text-white">
           Login
         </Button>
       </div>

@@ -1,3 +1,5 @@
+// CRUD operations untuk notes (create, read, update, delete, toggle complete)
+
 "use server";
 
 import { createClient } from "@/lib/utils/supabase/server";
@@ -63,7 +65,7 @@ export async function updateNote(id: string, noteData: UpdateNoteData) {
     .from("notes_app")
     .update(noteData)
     .eq("id", id)
-    .eq("user_id", user.id)  
+    .eq("user_id", user.id)   // User hanya bisa update note sendiri
     .select()
     .single();
 
@@ -121,23 +123,3 @@ export async function toggleComplete(id: string, isCompleted: boolean) {
   revalidatePath("/");
   return data;
 }
-
-// "use server";
-
-// import { createClient } from "@/utils/supabase/server";
-
-// export async function getNotes() {
-//   const supabase = await createClient();
-//   const { data: user } = await supabase.auth.getUser();
-
-//   const { data: notes, error } = await supabase
-//     .from("notes_app")
-//     .select("*")
-//     .order("created_at", { ascending: false });
-
-//   if (error) {
-//     throw new Error(error.message);
-//   }
-  
-//   return notes;
-// }
