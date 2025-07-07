@@ -13,13 +13,13 @@ import { useNotes } from "@/context/NoteContext"; // Import useNotes
 export default function NoteContent() {
   // Mengambil semua state dan function dari Context
   const {
-    notes,           // Array notes dari context
-    setNotes,        // Function untuk mengupdate notes di context
-    activeCategory,  // Kategori aktif dari context
+    notes,             // Array notes dari context
+    setNotes,          // Function untuk mengupdate notes di context
+    activeCategory,    // Kategori aktif dari context
     showCompletedOnly, // Filter status dari context
-    isLoading,       // Loading state dari context
-    setIsLoading,    // Function untuk mengubah loading state
-  } = useNotes();    // Custom hook untuk mengakses context
+    isLoading,         // Loading state dari context
+    setIsLoading,      // Function untuk mengubah loading state
+  } = useNotes();      // Custom hook untuk mengakses context
 
   const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,12 +56,12 @@ export default function NoteContent() {
     try {
       setIsLoading(true);       // Mengubah loading state di context
       const newNote = await createNote(noteData);
+
       setNotes(prev => [newNote, ...prev]);   // Update notes di context
       setShowModal(false);
       toast.success('Note added successfully!');
     } catch (error) {
       toast.error('Failed to add note');
-      console.error('Error adding note:', error);
     } finally {
       setIsLoading(false);     // Reset loading state di context
     }
@@ -84,7 +84,6 @@ export default function NoteContent() {
       toast.success('Note updated successfully!');
     } catch (error) {
       toast.error('Failed to update note');
-      console.error('Error updating note:', error);
     } finally {
       setIsLoading(false);
     }
@@ -100,7 +99,6 @@ export default function NoteContent() {
       toast.success('Note deleted successfully!');
     } catch (error) {
       toast.error('Failed to delete note');
-      console.error('Error deleting note:', error);
     }
   };
 
@@ -114,7 +112,6 @@ export default function NoteContent() {
       toast.success(isCompleted ? 'Note marked as completed!' : 'Note marked as incomplete!');
     } catch (error) {
       toast.error('Failed to update note status');
-      console.error('Error toggling note status:', error);
     }
   };
 

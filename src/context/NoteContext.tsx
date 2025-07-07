@@ -10,11 +10,11 @@ import { Note, NoteCategory } from "@/types/note";
 
 interface NoteContextType {
   notes: Note[];
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;     // Function untuk mengupdate state notes (dari useState)
   activeCategory: NoteCategory;
-  showCompletedOnly: boolean;
-  isLoading: boolean;
-  setActiveCategory: (category: NoteCategory) => void;
+  showCompletedOnly: boolean;                                 // Boolean untuk menampilkan hanya notes yang completed
+  isLoading: boolean;                                         // Boolean untuk status loading
+  setActiveCategory: (category: NoteCategory) => void;        // Function setter untuk mengubah state
   setShowCompletedOnly: (show: boolean) => void;
   setIsLoading: (loading: boolean) => void;
 }

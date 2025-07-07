@@ -14,6 +14,7 @@ interface TabPanelProps {
 }
 
 export default function TabPanel({
+  // notes, 
   // activeCategory,
   // showCompletedOnly,
   // onCategoryChange,

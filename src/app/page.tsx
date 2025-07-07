@@ -6,11 +6,9 @@ import { createClient } from "@/lib/utils/supabase/server";
 import { NoteProvider } from "@/context/NoteContext"; // Import NoteProvider
 
 export default async function NotesApp() {
-  const supabase = await createClient();
+  const supabase = await createClient();                    // Membuat koneksi ke Supabase database dari server
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser(); // Mendapatkan user yang sedang login
 
   if (!user) {
     redirect("/login");

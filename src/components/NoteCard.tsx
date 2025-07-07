@@ -86,7 +86,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
         </h3>
         
         {note.content && (
-          <p className={`text-gray-600 text-sm mb-4 line-clamp-3 ${note.is_completed ? 'line-through' : ''}`}>
+          <p className={`text-gray-600 text-sm mb-4 line-clamp-2 ${note.is_completed ? 'line-through' : ''}`}>
             {note.content}
           </p>
         )}

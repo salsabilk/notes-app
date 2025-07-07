@@ -58,7 +58,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed overflow-y-auto overflow-x-hidden top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-20 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div className="relative p-4 w-full max-w-2xl max-h-full">
         {/* Modal content */}
         <div className="relative bg-white bg-opacity-98 backdrop-blur-sm rounded-lg shadow-xl border border-gray-200 border-opacity-50">
@@ -86,7 +86,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
               {/* Title */}
               <div className="mb-4">
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-                  Title *
+                  Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
